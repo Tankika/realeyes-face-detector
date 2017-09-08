@@ -6,6 +6,7 @@
     "start": "nodemon ./bin/www"
   },
   "dependencies": {
+    "aws-sdk": "^2.111.0",
     "body-parser": "~1.17.1",
     "debug": "~2.6.3",
     "express": "~4.15.2"

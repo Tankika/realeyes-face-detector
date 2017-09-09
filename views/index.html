@@ -12,16 +12,16 @@
 		<p>You should be equipped with a webcam and allow us its usage</p>
 	</div>
 	<div id="capable" class="hidden">
-		<div class="camera-denied">
+		<div class="camera-denied hidden">
 			<h2>To continue exercise please refresh the page and allow your webcam!</h2>
 		</div>
-		<div class="camera-allowed">
+		<div class="camera-allowed hidden">
 			<div class="video">
-				<video height="180" id="video" width="320"></video>
+				<video height="240" id="video" width="320" autoplay></video>
 				<button id="captureBtn">Recognize</button>
-				<canvas height="180" id="canvas" width="320"></canvas>
+				<canvas height="240" id="canvas" width="320"></canvas>
 			</div>
-			<div class="capture">
+			<div class="capture hidden">
 				<div id="analyzisWrapper">
 					<h1>Analyzis</h1>
 					<pre id="analyzis">Analyzis result should show up here...</pre>
@@ -30,6 +30,7 @@
 		</div>
 	</div>
 	
+	<script src="https://webrtc.github.io/adapter/adapter-latest.js"></script>
 	<script type="text/javascript">
 		function environmentalDetectionCallback(result) {
 			const elementIdToShow = result.checksPassed ? 'capable' : 'non-capable';
@@ -48,5 +49,6 @@
 			s.parentNode.insertBefore(envDetect, s);
 		})();
 	</script>
+	<script src="./javascripts/main.js"></script>
 </body>
 </html>

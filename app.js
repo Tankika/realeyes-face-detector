@@ -1,46 +1,30 @@
-var express = require('express');
-var path = require('path');
-var bodyParser = require('body-parser');
-var fs = require('fs');
+const express = require('express');
+const path = require('path');
+const bodyParser = require('body-parser');
+const AWS = require('aws-sdk');
 
-var AWS = require('aws-sdk');
-
-var index = require('./routes/index');
-var users = require('./routes/users');
-var hike = require('./routes/hike');
+const index = require('./routes/index');
+const recognize = require('./routes/recognize');
 
 AWS.config.update({
 	accessKeyId: process.env.AWS_ACCESS_KEY_ID,
-	secretAccessKey: process.env.AWS_SECRET_KEY,
-	region: 'eu-west-1'
-});
-fs.readFile('./public/images/faces.jpg', (err, data) => {
-	var recognition = new AWS.Rekognition();
-	recognition.detectFaces({
-		Image: {
-			Bytes: data
-		}
-	}, (err, data) => {
-		if (err) console.log(err, err.stack); // an error occurred
-		else     console.log(data);           // successful response
-	});
+	secretAccessKey: process.env.AWS_SECRET_KEY
 });
 
-var app = express();
+const app = express();
 
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.raw({
+	limit: "10mb",
+	type: "image/*"
+}));
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', index);
-/*app.use('/users', users);
-
-app.get('/hikes', hike.index);
-app.post('/add_hike', hike.add_hike);*/
+app.use('/recognize', recognize);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
-	var err = new Error('Not Found');
+	const err = new Error('Not Found');
 	err.status = 404;
 	next(err);
 });

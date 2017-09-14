@@ -24,13 +24,12 @@
 			<div class="capture hidden">
 				<div id="analyzisWrapper">
 					<h1>Analyzis</h1>
-					<pre id="analyzis">Analyzis result should show up here...</pre>
+					<pre id="analyzis"></pre>
 				</div>
 			</div>
 		</div>
 	</div>
-	
-	<script src="https://webrtc.github.io/adapter/adapter-latest.js"></script>
+
 	<script type="text/javascript">
 		function environmentalDetectionCallback(result) {
 			const elementIdToShow = result.checksPassed ? 'capable' : 'non-capable';
@@ -49,6 +48,8 @@
 			s.parentNode.insertBefore(envDetect, s);
 		})();
 	</script>
+	<script src="https://webrtc.github.io/adapter/adapter-latest.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/lodash@4.17.4/lodash.min.js"></script>
 	<script src="./javascripts/main.js"></script>
 </body>
 </html>

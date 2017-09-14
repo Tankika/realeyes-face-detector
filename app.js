@@ -1,15 +1,9 @@
 const express = require('express');
 const path = require('path');
 const bodyParser = require('body-parser');
-const AWS = require('aws-sdk');
 
 const index = require('./routes/index');
 const recognize = require('./routes/recognize');
-
-AWS.config.update({
-	accessKeyId: process.env.AWS_ACCESS_KEY_ID,
-	secretAccessKey: process.env.AWS_SECRET_KEY
-});
 
 const app = express();
 

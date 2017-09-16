@@ -2,9 +2,8 @@ const router = require('express').Router();
 const AWS = require('aws-sdk');
 
 router.post('/', function(req, res, next) {
-	const recognition = new AWS.Rekognition({
-		region: 'eu-west-1'
-	});
+	const recognition = new AWS.Rekognition();
+	
 	recognition.detectFaces({
 		Attributes: ["ALL"],
 		Image: {
@@ -12,7 +11,7 @@ router.post('/', function(req, res, next) {
 		}
 	}, (err, data) => {
 		if (err) {
-			console.log(err, err.stack);
+			console.error(err, err.stack);
 			next(err);
 		} else {
 			res.send(data);

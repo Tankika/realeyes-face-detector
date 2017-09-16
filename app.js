@@ -1,9 +1,14 @@
 const express = require('express');
 const path = require('path');
 const bodyParser = require('body-parser');
+const AWS = require('aws-sdk');
 
 const index = require('./routes/index');
-const recognize = require('./routes/recognize');
+const detectFaces = require('./routes/detectFaces');
+
+AWS.config.update({
+	region: 'eu-west-1'
+});
 
 const app = express();
 
@@ -14,7 +19,7 @@ app.use(bodyParser.raw({
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', index);
-app.use('/recognize', recognize);
+app.use('/detectFaces', detectFaces);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

@@ -2,12 +2,13 @@
 	'use strict';
 
 	const videoElement = document.querySelector('video#video');
-	const captureButton = document.querySelector('button#captureBtn');
 	const canvasElement = document.querySelector('canvas#canvas');
 
 	Realeyesit.EnvironmentalDetectionAPI.start(environmentalDetectionCallback);
 	
 	function environmentalDetectionCallback(result) {
+		window.hideElement('#detecting');
+
 		if(!result.checksPassed) {
 			window.showElement('#non-capable');
 			return;
@@ -24,7 +25,10 @@
 	
 	function handleGetUserMediaSuccess(stream) {
 		window.showElement('.camera-allowed');
+
 		videoElement.srcObject = stream;
+		
+		const captureButton = document.querySelector('button#captureBtn');
 		captureButton.onclick = captureButtonClickHandler;
 	}
 
